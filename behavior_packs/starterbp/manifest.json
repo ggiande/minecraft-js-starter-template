@@ -1,10 +1,10 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Behavior Pack Template",
+    "name": "Behavior Pack Template v1.0.0",
     "description": "My behavior pack description",
-    "uuid": "21d60554-713e-4fc7-bb65-b81710754c66",
-    "version": [0, 0, 1],
+    "uuid": "c0b34241-6bc1-450c-b4b4-f497c9a15bb8",
+    "version": [1, 0, 0],
     "min_engine_version": [1, 19, 40]
   },
   "modules": [
@@ -12,8 +12,8 @@
       "description": "Script resources",
       "language": "javascript",
       "type": "script",
-      "uuid": "dd7796a0-19d2-4231-b5b6-4ef52c780db3",
-      "version": [0, 0, 1],
+      "uuid": "9a605317-ff38-48d3-9e5d-d92310db6c15",
+      "version": [1, 0, 0],
       "entry": "scripts/main.js"
     }
   ],
