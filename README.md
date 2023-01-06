@@ -1,13 +1,3 @@
----
-page_type: sample
-author: ggiande
-description: A basic starter template for minecraft behavior packs using typescript. Adapted from mikeam@microsoft.com
-languages:
-  - typescript
-products:
-  - minecraft
----
-
 # Minecraft TypeScript Starter Project
 
 This sample demonstrates a simple build process and TypeScript compilation for Minecraft. This readme shows how you can use Betas APIs experiment to build out simple gameplay styles. You can use this project as a starter for your own scripting projects.
