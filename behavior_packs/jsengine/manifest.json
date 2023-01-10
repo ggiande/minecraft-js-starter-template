@@ -1,18 +1,25 @@
 {
   "format_version": 2,
+  "metadata": {
+    "authors": ["ggiande"],
+    "generated_with": {
+      "bridge": ["2.6.0"],
+      "dash": ["0.10.8"]
+    }
+  },
   "header": {
-    "name": "Behavior Pack Template v1.0.0",
+    "name": "Hello World Starter Template now in jsengine v1.0.0",
     "description": "My behavior pack description",
-    "uuid": "c0b34241-6bc1-450c-b4b4-f497c9a15bb8",
+    "uuid": "c2d2398e-224e-4c01-9388-c7685bfffc60",
     "version": [1, 0, 0],
-    "min_engine_version": [1, 19, 40]
+    "min_engine_version": [1, 19, 50]
   },
   "modules": [
     {
       "description": "Script resources",
       "language": "javascript",
       "type": "script",
-      "uuid": "9a605317-ff38-48d3-9e5d-d92310db6c15",
+      "uuid": "eb4ecc64-75fb-4ff0-973a-d9b9bd4df7d8",
       "version": [1, 0, 0],
       "entry": "scripts/main.js"
     }

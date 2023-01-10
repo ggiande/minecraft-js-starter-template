@@ -1,6 +1,6 @@
 // === CONFIGURABLE VARIABLES
 
-const bpfoldername = "starterbp";
+const bpfoldername = "jsengine";
 const useMinecraftPreview = false; // Whether to target the "Minecraft Preview" version of Minecraft vs. the main store version of Minecraft
 const useMinecraftDedicatedServer = false; // Whether to use Bedrock Dedicated Server - see https://www.minecraft.net/download/server/bedrock
 const dedicatedServerPath = "C:/mc/bds/1.19.0/"; // if using Bedrock Dedicated Server, where to find the extracted contents of the zip package
@@ -14,9 +14,13 @@ const os = require("os");
 const spawn = require("child_process").spawn;
 const sourcemaps = require("gulp-sourcemaps");
 
-const worldsFolderName = useMinecraftDedicatedServer ? "worlds" : "minecraftWorlds";
+const worldsFolderName = useMinecraftDedicatedServer
+  ? "worlds"
+  : "minecraftWorlds";
 
-const activeWorldFolderName = useMinecraftDedicatedServer ? "Bedrock level" : bpfoldername + "world";
+const activeWorldFolderName = useMinecraftDedicatedServer
+  ? "Bedrock level"
+  : bpfoldername + "world";
 
 const mcdir = useMinecraftDedicatedServer
   ? dedicatedServerPath
@@ -37,38 +41,46 @@ function clean_build(callbackFunction) {
 }
 
 function copy_behavior_packs() {
-  return gulp.src(["behavior_packs/**/*"]).pipe(gulp.dest("build/behavior_packs"));
+  return gulp
+    .src(["behavior_packs/**/*"])
+    .pipe(gulp.dest("build/behavior_packs"));
 }
 
 function copy_resource_packs() {
-  return gulp.src(["resource_packs/**/*"]).pipe(gulp.dest("build/resource_packs"));
+  return gulp
+    .src(["resource_packs/**/*"])
+    .pipe(gulp.dest("build/resource_packs"));
 }
 
 const copy_content = gulp.parallel(copy_behavior_packs, copy_resource_packs);
 
 function compile_scripts() {
-  return gulp
-    .src("scripts/**/*.ts")
-    .pipe(sourcemaps.init())
-    .pipe(
-      ts({
-        module: "es2020",
-        moduleResolution: "node",
-        lib: ["es2020", "dom"],
-        strict: true,
-        target: "es2020",
-        noImplicitAny: true,
-      })
-    )
-    .pipe(
-      sourcemaps.write("../../_" + bpfoldername + "Debug", {
-        destPath: bpfoldername + "/scripts/",
-        sourceRoot: "./../../../scripts/",
-      })
-    )
-    .pipe(gulp.dest("build/behavior_packs/" + bpfoldername + "/scripts"));
+  return (
+    gulp
+      .src("scripts/**/*.js")
+      .pipe(sourcemaps.init())
+
+      // .pipe(
+      //   ts({
+      //     module: "es2020",
+      //     moduleResolution: "node",
+      //     lib: ["es2020", "dom"],
+      //     strict: true,
+      //     target: "es2020",
+      //     noImplicitAny: true
+      //   })
+      // )
+      .pipe(
+        sourcemaps.write("../../_" + bpfoldername + "Debug", {
+          destPath: bpfoldername + "/scripts/",
+          sourceRoot: "./../../../scripts/"
+        })
+      )
+      .pipe(gulp.dest("build/behavior_packs/" + bpfoldername + "/scripts"))
+  );
 }
 
+// HERE, REMOVED FUNC IN SERIES FROM ABOVE
 const build = gulp.series(clean_build, copy_content, compile_scripts);
 
 function clean_localmc(callbackFunction) {
@@ -78,9 +90,15 @@ function clean_localmc(callbackFunction) {
     return;
   }
 
-  del([mcdir + "development_behavior_packs/" + bpfoldername, mcdir + "development_resource_packs/" + bpfoldername], {
-    force: true,
-  }).then(
+  del(
+    [
+      mcdir + "development_behavior_packs/" + bpfoldername,
+      mcdir + "development_resource_packs/" + bpfoldername
+    ],
+    {
+      force: true
+    }
+  ).then(
     (value) => {
       callbackFunction(); // Success
     },
@@ -91,7 +109,13 @@ function clean_localmc(callbackFunction) {
 }
 
 function deploy_localmc_behavior_packs() {
-  console.log("Deploying to '" + mcdir + "development_behavior_packs/" + bpfoldername + "'");
+  console.log(
+    "Deploying to '" +
+      mcdir +
+      "development_behavior_packs/" +
+      bpfoldername +
+      "'"
+  );
   return gulp
     .src(["build/behavior_packs/" + bpfoldername + "/**/*"])
     .pipe(gulp.dest(mcdir + "development_behavior_packs/" + bpfoldername));
@@ -131,7 +155,7 @@ function clean_localmc_world(callbackFunction) {
   console.log("Removing '" + getTargetWorldPath() + "'");
 
   del([getTargetWorldPath()], {
-    force: true,
+    force: true
   }).then(
     (value) => {
       callbackFunction(); // Success
@@ -146,7 +170,7 @@ function clean_localmc_config(callbackFunction) {
   console.log("Removing '" + getTargetConfigPath() + "'");
 
   del([getTargetConfigPath()], {
-    force: true,
+    force: true
   }).then(
     (value) => {
       callbackFunction(); // Success
@@ -161,7 +185,7 @@ function clean_dev_world(callbackFunction) {
   console.log("Removing '" + getDevWorldPath() + "'");
 
   del([getDevWorldPath()], {
-    force: true,
+    force: true
   }).then(
     (value) => {
       callbackFunction(); // Success
@@ -176,7 +200,7 @@ function clean_localmc_world_backup(callbackFunction) {
   console.log("Removing backup'" + getTargetWorldBackupPath() + "'");
 
   del([getTargetWorldBackupPath()], {
-    force: true,
+    force: true
   }).then(
     (value) => {
       callbackFunction(); // Success
@@ -191,7 +215,7 @@ function clean_dev_world_backup(callbackFunction) {
   console.log("Removing backup'" + getDevWorldBackupPath() + "'");
 
   del([getTargetWorldBackupPath()], {
-    force: true,
+    force: true
   }).then(
     (value) => {
       callbackFunction(); // Success
@@ -203,29 +227,57 @@ function clean_dev_world_backup(callbackFunction) {
 }
 
 function backup_dev_world() {
-  console.log("Copying world '" + getDevWorldPath() + "' to '" + getDevWorldBackupPath() + "'");
+  console.log(
+    "Copying world '" +
+      getDevWorldPath() +
+      "' to '" +
+      getDevWorldBackupPath() +
+      "'"
+  );
   return gulp
     .src([getTargetWorldPath() + "/**/*"])
-    .pipe(gulp.dest(getDevWorldBackupPath() + "/worlds/" + activeWorldFolderName));
+    .pipe(
+      gulp.dest(getDevWorldBackupPath() + "/worlds/" + activeWorldFolderName)
+    );
 }
 
 function deploy_localmc_config() {
   console.log("Copying world 'config/' to '" + getTargetConfigPath() + "'");
-  return gulp.src([getDevConfigPath() + "/**/*"]).pipe(gulp.dest(getTargetConfigPath()));
+  return gulp
+    .src([getDevConfigPath() + "/**/*"])
+    .pipe(gulp.dest(getTargetConfigPath()));
 }
 
 function deploy_localmc_world() {
-  console.log("Copying world 'worlds/default/' to '" + getTargetWorldPath() + "'");
-  return gulp.src([getDevWorldPath() + "/**/*"]).pipe(gulp.dest(getTargetWorldPath()));
+  console.log(
+    "Copying world 'worlds/default/' to '" + getTargetWorldPath() + "'"
+  );
+  return gulp
+    .src([getDevWorldPath() + "/**/*"])
+    .pipe(gulp.dest(getTargetWorldPath()));
 }
 
 function ingest_localmc_world() {
-  console.log("Ingesting world '" + getTargetWorldPath() + "' to '" + getDevWorldPath() + "'");
-  return gulp.src([getTargetWorldPath() + "/**/*"]).pipe(gulp.dest(getDevWorldPath()));
+  console.log(
+    "Ingesting world '" +
+      getTargetWorldPath() +
+      "' to '" +
+      getDevWorldPath() +
+      "'"
+  );
+  return gulp
+    .src([getTargetWorldPath() + "/**/*"])
+    .pipe(gulp.dest(getDevWorldPath()));
 }
 
 function backup_localmc_world() {
-  console.log("Copying world '" + getTargetWorldPath() + "' to '" + getTargetWorldBackupPath() + "/'");
+  console.log(
+    "Copying world '" +
+      getTargetWorldPath() +
+      "' to '" +
+      getTargetWorldBackupPath() +
+      "/'"
+  );
   return gulp
     .src([getTargetWorldPath() + "/**/*"])
     .pipe(gulp.dest(getTargetWorldBackupPath() + "/" + activeWorldFolderName));
@@ -244,14 +296,14 @@ const deploy_localmc = gulp.series(
 
 function watch() {
   return gulp.watch(
-    ["scripts/**/*.ts", "behavior_packs/**/*", "resource_packs/**/*"],
+    ["scripts/**/*.js", "behavior_packs/**/*", "resource_packs/**/*"],
     gulp.series(build, deploy_localmc)
   );
 }
 
 function serve() {
   return gulp.watch(
-    ["scripts/**/*.ts", "behavior_packs/**/*", "resource_packs/**/*"],
+    ["scripts/**/*.js", "behavior_packs/**/*", "resource_packs/**/*"],
     gulp.series(stopServer, build, deploy_localmc, startServer)
   );
 }
@@ -320,5 +372,10 @@ exports.updateworld = gulp.series(
   clean_localmc_world,
   deploy_localmc_world
 );
-exports.ingestworld = gulp.series(clean_dev_world_backup, backup_dev_world, clean_dev_world, ingest_localmc_world);
+exports.ingestworld = gulp.series(
+  clean_dev_world_backup,
+  backup_dev_world,
+  clean_dev_world,
+  ingest_localmc_world
+);
 exports.updateconfig = gulp.series(clean_localmc_config, deploy_localmc_config);
