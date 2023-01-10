@@ -1,6 +1,6 @@
 # Minecraft TypeScript Starter Project
 
-This sample demonstrates a simple build process and TypeScript compilation for Minecraft. This readme shows how you can use Betas APIs experiment to build out simple gameplay styles. You can use this project as a starter for your own scripting projects.
+This sample demonstrates a simple build process and javascript example for Minecraft. This README.md shows how you can use Betas APIs experiment to build out a simple app that says hello world. You can use this project as a starter for your own scripting projects.
 
 ## Prerequisites
 
@@ -16,14 +16,14 @@ Visit the [Visual Studio Code website](https://code.visualstudio.com) and instal
 
 ## Getting Started
 
-1. Use npm to install depencies and to install a new one globally:
+1. Use npm to install dependencies and to install a new one globally:
 
    ```powershell
    npm i
    npm i gulp-cli --global
    ```
 
-### Chapter 1. Customize the behavior pack
+### Chapter 1. Prepare the behavior pack to be built for Minecraft
 
 In Visual Studio Code, expand the `behavior_packs` node in the treeview to the left, and rename the **starterbp** folder to "project_name".
 
@@ -35,6 +35,7 @@ Use the Find/Replace command (Ctrl-Shift-F) to search for "starterbp" and replac
   - [ ] name
   - [ ] description
 - [ ] Create new UUIDs from the [Online UUID Generator](https://www.uuidgenerator.net/)
+  - [ ] Each module and script should be new just to be safe!
 
 ### Chapter 2. Let's test the parts of our project
 
@@ -42,6 +43,8 @@ The following powershell command should only run once.
 `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`
 
 Gulp in "watch mode" allows gulp to sit in the background and watch for changes,and if they happen, they will automatically compile and deploy to the Minecraft folder. This way, we won't have to worry about separately compiling every time we make a change to code.
+
+> In Minecraft: Running the `/reload` command will ONLY refresh your scripts and allow you to develop code while in-game. If you change entities/textures, this will not work. Gulp the project, then restart the world.
 
 > IMPORTANT:
 > You may also need to update the version of Beta APIs in your `dependencies` section to match your version of Minecraft.
